@@ -1,9 +1,5 @@
-﻿using CarDealer.Core.Abstractions;
-using CarDealer.Core.Models;
-using System.Net.Http;
-using System.Net.Http.Json;
-using System.Text;
-using System.Text.Json;
+﻿using CarDealer.Core.Abstractions.Cars;
+using CarDealer.Core.Models.Cars;
 
 namespace CarDealer.App.Services
 {

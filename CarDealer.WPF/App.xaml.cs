@@ -1,5 +1,4 @@
 ﻿using CarDealer.App.Services;
-using CarDealer.Core.Abstractions;
 using CarDealer.DataAccess.Repos;
 using CarDealer.DataAccess.DatabaseContext;
 using CarDealer.WPF.Services;
@@ -10,6 +9,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using System.IO;
 using System.Windows;
+using CarDealer.Core.Abstractions.Cars;
 
 namespace CarDealer.WPF
 {

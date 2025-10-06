@@ -3,38 +3,57 @@ using CarDealer.DataAccess.DatabaseContext;
 using CarDealer.DataAccess.Entities.Cars;
 using CarDealer.Core.Abstractions.Cars;
 using CarDealer.Core.Models.Cars;
+using CarDealer.Core.Models.Sales;
+using CarDealer.DataAccess.Entities.Sales;
 
 namespace CarDealer.DataAccess.Repos
 {
-    public class CarRepo : ICarRepo
+    public class SaleRepo : ISaleRepo
     {
         private readonly CarDealerDbContext context;
 
-        public CarRepo(CarDealerDbContext context)
+        public SaleRepo(CarDealerDbContext context)
         {
             this.context = context;
         }
 
-        public async Task<List<Car>> Get()
+        public async Task<List<Sale>> Get()
         {
-            return await context.Cars
-                .Include(c => c.Complect)
-                    .ThenInclude(co => co.Model)
-                        .ThenInclude(m => m.Brand)
-                            .ThenInclude(b => b.Country)
-                .Include(c => c.Color)
+            return await context.Sales
+                .Include(c => c.Car)
+                    .ThenInclude(c => c.Complect)
+                        .ThenInclude(c => c.Model)
+                            .ThenInclude(m => m.Brand)
+                                .ThenInclude(b => b.Country)
+                .Include(c => c.Employee)
                 .AsNoTracking()
-                .Select(x => Car.Create(
+                .Select(x => Sale.Create(
                     x.Id,
-                    x.ComplectId,
-                    x.ColorId,
-                    x.Year,
-                    x.Price,
+                    x.CarId,
+                    x.SaleDate,
+                    x.EmployeeId,
                     x.State,
-                    MapComplect(x.Complect),
-                    MapColor(x.Color)
+                    MapCar(x.Car),
+                    MapEmployee(x.Employee)
                 ))
                 .ToListAsync();
+        }
+
+        private static Car? MapCar(CarEntity? entity)
+        {
+            if (entity == null)
+                return null;
+
+            return Car.Create(
+                entity.Id,
+                entity.ComplectId,
+                entity.ColorId,
+                entity.Year,
+                entity.Price,
+                entity.State,
+                MapComplect(entity.Complect),
+                MapColor(entity.Color)
+            );
         }
 
         private static Country? MapCountry(CountryEntity? entity)
@@ -105,34 +124,46 @@ namespace CarDealer.DataAccess.Repos
             );
         }
 
-        public async Task<int> Create(Car car)
+        private static Employee? MapEmployee(EmployeeEntity? entity)
         {
-            var carEntity = new CarEntity
-            {
-                Id = car.Id,
-                ComplectId = car.ComplectId,
-                ColorId = car.ColorId,
-                Year = car.Year,
-                Price = car.Price,
-                State = car.State
-            };
+            if (entity == null)
+                return null;
 
-            await context.Cars.AddAsync(carEntity);
-            await context.SaveChangesAsync();
-
-            return carEntity.Id;
+            return Employee.Create(
+                entity.Id,
+                entity.Fio,
+                entity.Email,
+                entity.Phone,
+                entity.State
+            );
         }
 
-        public async Task<int> Update(int id, int complectId, int colorId, int year, decimal price, int state)
+        public async Task<int> Create(Sale sale)
         {
-            await context.Cars
+            var saleEntity = new SaleEntity
+            {
+                Id = sale.Id,
+                CarId = sale.CarId,
+                SaleDate = sale.SaleDate,
+                EmployeeId = sale.EmployeeId,
+                State = sale.State
+            };
+
+            await context.Sales.AddAsync(saleEntity);
+            await context.SaveChangesAsync();
+
+            return saleEntity.Id;
+        }
+
+        public async Task<int> Update(int id, int carId, DateTime saleDate, int employeeId, int state)
+        {
+            await context.Sales
                 .Where(t => t.Id == id)
                 .ExecuteUpdateAsync(u => u
                     .SetProperty(p => p.Id, p => id)
-                    .SetProperty(p => p.ComplectId, p => complectId)
-                    .SetProperty(p => p.ColorId, p => colorId)
-                    .SetProperty(p => p.Year, p => year)
-                    .SetProperty(p => p.Price, p => price)
+                    .SetProperty(p => p.CarId, p => carId)
+                    .SetProperty(p => p.SaleDate, p => saleDate)
+                    .SetProperty(p => p.EmployeeId, p => employeeId)
                     .SetProperty(p => p.State, p => state));
 
             return id;
@@ -140,7 +171,7 @@ namespace CarDealer.DataAccess.Repos
 
         public async Task<int> Delete(int id)
         {
-            await context.Cars
+            await context.Sales
                 .Where(t => t.Id == id)
                 .ExecuteDeleteAsync();
 

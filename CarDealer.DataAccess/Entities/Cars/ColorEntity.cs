@@ -1,6 +1,6 @@
-﻿namespace CarDealer.DataAccess.Entities
+﻿namespace CarDealer.DataAccess.Entities.Cars
 {
-    public class CountryEntity
+    public class ColorEntity
     {
         public int Id { get; set; }
 

@@ -1,6 +1,6 @@
-﻿using CarDealer.Core.Models;
+﻿using CarDealer.Core.Models.Cars;
 
-namespace CarDealer.Core.Abstractions
+namespace CarDealer.Core.Abstractions.Cars
 {
     public interface ICarRepo
     {

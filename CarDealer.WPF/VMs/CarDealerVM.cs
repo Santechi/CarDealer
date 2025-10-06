@@ -1,4 +1,4 @@
-﻿using CarDealer.Core.Abstractions;
+﻿using CarDealer.Core.Abstractions.Cars;
 using CarDealer.WPF.Services;
 using Microsoft.Extensions.DependencyInjection;
 using System;

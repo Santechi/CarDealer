@@ -1,11 +1,12 @@
-﻿using CarDealer.DataAccess.Entities;
+﻿using CarDealer.DataAccess.Entities.Cars;
+using CarDealer.DataAccess.Entities.Sales;
 using Microsoft.EntityFrameworkCore;
 
 namespace CarDealer.DataAccess.DatabaseContext
 {
     public class CarDealerDbContext : DbContext
     {
-        public CarDealerDbContext(DbContextOptions options) : base(options)
+        public CarDealerDbContext(DbContextOptions<CarDealerDbContext> options) : base(options)
         {
         }
 
@@ -15,5 +16,7 @@ namespace CarDealer.DataAccess.DatabaseContext
         public DbSet<ModelEntity> Models { get; set; }
         public DbSet<ColorEntity> Colors { get; set; }
         public DbSet<CountryEntity> Countries { get; set; }
+        public DbSet<SaleEntity> Sales { get; set; }
+        public DbSet<EmployeeEntity> Employees { get; set; }
     }
 }

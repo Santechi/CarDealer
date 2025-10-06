@@ -1,8 +1,8 @@
-﻿using CarDealer.DataAccess.Entities;
+﻿using CarDealer.DataAccess.Entities.Cars;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace CarDealer.DataAccess.Configs
+namespace CarDealer.DataAccess.Configs.Cars
 {
     public class CarConfig : IEntityTypeConfiguration<CarEntity>
     {

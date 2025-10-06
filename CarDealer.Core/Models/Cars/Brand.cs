@@ -1,4 +1,4 @@
-﻿namespace CarDealer.Core.Models
+﻿namespace CarDealer.Core.Models.Cars
 {
     public class Brand
     {

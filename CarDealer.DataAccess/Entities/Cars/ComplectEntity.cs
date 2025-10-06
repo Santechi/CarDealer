@@ -1,4 +1,4 @@
-﻿namespace CarDealer.DataAccess.Entities
+﻿namespace CarDealer.DataAccess.Entities.Cars
 {
     public class ComplectEntity
     {

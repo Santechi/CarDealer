@@ -1,6 +1,4 @@
-﻿using CarDealer.App.Services;
-using CarDealer.Core.Abstractions;
-using CarDealer.Core.Models;
+﻿using CarDealer.Core.Models.Cars;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -32,7 +30,6 @@ namespace CarDealer.WPF.VMs
 
         public AllCarsFrameVM()
         {
-            
         }
 
         public AllCarsFrameVM(List<Car> cars)
@@ -40,7 +37,6 @@ namespace CarDealer.WPF.VMs
             SetupCommands();
 
             Cars = cars;
-            //Cars = cars.Select(x => new CarVM(x));
         }
 
         public void SetupCommands()
