@@ -1,4 +1,5 @@
 ﻿using CarDealer.Core.Models.Cars;
+using CarDealer.Core.Models.Sales;
 using CarDealer.DataAccess.Entities.Cars;
 using CarDealer.DataAccess.Entities.Sales;
 

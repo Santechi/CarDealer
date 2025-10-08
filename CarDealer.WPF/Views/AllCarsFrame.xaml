@@ -58,10 +58,10 @@
                         <TextBlock Text="Цена" Margin="5,0,5,0"/>
                         <TextBox MinWidth="110" Text="{Binding Price}"/>
                     </StackPanel>
-                    <Button Content="Создать" ToolTip="Создать автомобиль" MinWidth="100" Margin="3" Command="{Binding AddCarCmd}" HorizontalAlignment="Right" Grid.Column="6"/>
+                    <Button Content="Создать" ToolTip="Создать автомобиль" MinWidth="100" Margin="3" Command="{Binding AddCarCmd}" IsEnabled="{Binding CanCreateCar}" HorizontalAlignment="Right" Grid.Column="6"/>
                 </Grid>
             </Expander>
-            <Button Content="Удалить автомобиль" ToolTip="Рассчитать стоимость за год" HorizontalAlignment="Left" MinWidth="120" MaxWidth="150" Margin="3" IsEnabled="{Binding CanDeleteCar}" Command="{Binding DeleteCarCmd}"/>
+            <Button Content="Удалить автомобиль" HorizontalAlignment="Left" MinWidth="120" MaxWidth="150" Margin="3" IsEnabled="{Binding CanDeleteCar}" Command="{Binding DeleteCarCmd}"/>
         </StackPanel>
         
         <DataGrid ItemsSource="{Binding Cars}"

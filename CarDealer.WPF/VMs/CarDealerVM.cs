@@ -1,4 +1,4 @@
-﻿using CarDealer.Core.Abstractions.Cars;
+﻿using CarDealer.Core.Abstractions.Sales;
 using CarDealer.Core.Models.Sales;
 using CarDealer.WPF.Services;
 using Microsoft.Extensions.DependencyInjection;
@@ -20,7 +20,6 @@ namespace CarDealer.WPF.VMs
 
         private readonly IServiceProvider serviceProvider;
         private readonly IFrameService frameService;
-        private readonly ICarService carService;
         private readonly ISaleService saleService;
 
         public int SelectedYear { get; set; }
@@ -39,7 +38,7 @@ namespace CarDealer.WPF.VMs
             set
             {
                 carSales = value;
-                OnPropertyChanged("CarSales");
+                OnPropertyChanged(nameof(CarSales));
             }
         }
 
@@ -52,7 +51,6 @@ namespace CarDealer.WPF.VMs
             this.serviceProvider = serviceProvider;
 
             frameService = serviceProvider.GetRequiredService<IFrameService>();
-            carService = serviceProvider.GetRequiredService<ICarService>();
             saleService = serviceProvider.GetRequiredService<ISaleService>();
         }
 
@@ -66,22 +64,17 @@ namespace CarDealer.WPF.VMs
 
         public async Task LoadAllCars()
         {
-            var carsFrame = new AllCarsFrameVM(serviceProvider);
-            frameService.ShowWindow(carsFrame);
+            frameService.ShowWindow(new AllCarsFrameVM(serviceProvider));
         }
 
         public async Task LoadAllSales()
         {
-            if (!Sales.Any())
-                Sales = await saleService.GetAllSales();
-
-            frameService.ShowWindow(new AllSalesFrameVM(Sales));
+            frameService.ShowWindow(new AllSalesFrameVM(serviceProvider));
         }
 
         public async Task CalcAllSales()
         {
-            if (!Sales.Any())
-                Sales = await saleService.GetAllSales();
+            Sales = await saleService.GetAllSales();
 
             if (SelectedYear > 0)
                 CarSales = Sales.Where(s => s.SaleDate.Year == SelectedYear).GroupBy(s => s.Car?.Complect?.Model?.Id).Select(g => new YearSaleVM(g.ToList())).ToList();

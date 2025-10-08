@@ -1,4 +1,4 @@
-﻿using CarDealer.Core.Abstractions.Cars;
+﻿using CarDealer.Core.Abstractions.Sales;
 using CarDealer.Core.Models.Sales;
 
 namespace CarDealer.App.Services
@@ -25,6 +25,11 @@ namespace CarDealer.App.Services
         public async Task<int> DeleteSale(int id)
         {
             return await saleRepo.Delete(id);
+        }
+
+        public async Task<int> DeleteSalePermanently(int id)
+        {
+            return await saleRepo.DeletePermanently(id);
         }
 
         public async Task<int> UpdateSale(int id, int carId, DateOnly saleDate, int employeeId, int state)

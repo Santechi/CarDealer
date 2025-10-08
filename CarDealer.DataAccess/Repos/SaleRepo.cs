@@ -1,8 +1,9 @@
-﻿using Microsoft.EntityFrameworkCore;
-using CarDealer.DataAccess.DatabaseContext;
-using CarDealer.Core.Abstractions.Cars;
+﻿using CarDealer.Core.Abstractions.Sales;
+using CarDealer.Core.Models.Cars;
 using CarDealer.Core.Models.Sales;
+using CarDealer.DataAccess.DatabaseContext;
 using CarDealer.DataAccess.Entities.Sales;
+using Microsoft.EntityFrameworkCore;
 
 namespace CarDealer.DataAccess.Repos
 {
@@ -24,6 +25,8 @@ namespace CarDealer.DataAccess.Repos
                         .ThenInclude(c => c.Model)
                             .ThenInclude(m => m.Brand)
                                 .ThenInclude(b => b.Country)
+                .Include(c => c.Car)
+                    .ThenInclude(c => c.Color)
                 .Include(c => c.Employee)
                 .AsNoTracking()
                 .Select(x => Sale.Create(
@@ -70,6 +73,16 @@ namespace CarDealer.DataAccess.Repos
         }
 
         public async Task<int> Delete(int id)
+        {
+            await context.Sales
+                .Where(t => t.Id == id)
+                .ExecuteUpdateAsync(u => u
+                    .SetProperty(p => p.State, p => 1));
+
+            return id;
+        }
+
+        public async Task<int> DeletePermanently(int id)
         {
             await context.Sales
                 .Where(t => t.Id == id)

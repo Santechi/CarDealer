@@ -1,5 +1,5 @@
 ﻿
-namespace CarDealer.Core.Models.Cars
+namespace CarDealer.Core.Models.Sales
 {
     public class Employee
     {

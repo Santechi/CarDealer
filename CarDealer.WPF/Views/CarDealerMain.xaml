@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
         mc:Ignorable="d"
-        Title="CarDealerMain" Height="500" Width="1025">
+        Title="CarDealerMain" Height="800" Width="1050">
     <Grid>
 
         <Grid.ColumnDefinitions>
@@ -31,8 +31,7 @@
             <Button Content="Все авто" ToolTip="Выгрузить все доступные автомобили" MinWidth="100" Margin="3" Command="{Binding LoadAllCarsCmd}"/>
             <Button Content="Все продажи" ToolTip="Выгрузить все выполненые продажи" MinWidth="100" Margin="3" Command="{Binding LoadAllSalesCmd}"/>
         </StackPanel>
-
-
+        
         <DataGrid ItemsSource="{Binding CarSales}"
                   AutoGenerateColumns="False"
                   HeadersVisibility="Column"

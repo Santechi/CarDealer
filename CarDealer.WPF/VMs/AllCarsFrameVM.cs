@@ -3,6 +3,7 @@ using CarDealer.Core.Models.Cars;
 using Microsoft.Extensions.DependencyInjection;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Windows;
 using System.Windows.Data;
 using System.Windows.Input;
 
@@ -23,9 +24,24 @@ namespace CarDealer.WPF.VMs
         private readonly IComplectService complectService;
         private readonly IColorService colorService;
 
-        public decimal Price { get; set; }
+        private decimal price;
+        public decimal Price
+        {
+            get => price;
+            set
+            {
+                price = value;
+                OnPropertyChanged(nameof(CanCreateCar));
+            }
+        }
 
         public bool IsComplectEnabled { get; set; } = false;
+
+        public bool CanCreateCar => SelectedComplect != null 
+                                 && SelectedBrand != null
+                                 && SelectedYear > 0
+                                 && SelectedComplect != null
+                                 && SelectedColor != null;
 
         private bool canDeleteCar;
         public bool CanDeleteCar 
@@ -38,7 +54,16 @@ namespace CarDealer.WPF.VMs
             } 
         }
 
-        public int SelectedYear { get; set; }
+        private int selectedYear;
+        public int SelectedYear
+        { 
+            get => selectedYear;
+            set
+            {
+                selectedYear = value;
+                OnPropertyChanged(nameof(CanCreateCar));
+            }
+        }
 
         int startYear = 2000;
         int endYear = DateTime.Now.Year + 5;
@@ -53,6 +78,7 @@ namespace CarDealer.WPF.VMs
             {
                 selectedBrand = value;
                 OnPropertyChanged(nameof(SelectedBrand));
+                OnPropertyChanged(nameof(CanCreateCar));
 
                 ModelsView?.Refresh();
                 ComplectsView?.Refresh();
@@ -80,6 +106,7 @@ namespace CarDealer.WPF.VMs
                 OnPropertyChanged(nameof(SelectedModel));
                 OnPropertyChanged(nameof(SelectedComplect));
                 OnPropertyChanged(nameof(IsComplectEnabled));
+                OnPropertyChanged(nameof(CanCreateCar));
             }
         }
 
@@ -91,6 +118,7 @@ namespace CarDealer.WPF.VMs
             {
                 selectedComplect = value;
                 OnPropertyChanged(nameof(SelectedComplect));
+                OnPropertyChanged(nameof(CanCreateCar));
             }
         }
 
@@ -102,6 +130,7 @@ namespace CarDealer.WPF.VMs
             {
                 selectedColor = value;
                 OnPropertyChanged(nameof(SelectedColor));
+                OnPropertyChanged(nameof(CanCreateCar));
             }
         }
 
@@ -201,16 +230,16 @@ namespace CarDealer.WPF.VMs
             set
             {
                 selectedCar = value;
-
                 CanDeleteCar = selectedCar != null ? true : false;
 
                 OnPropertyChanged(nameof(SelectedCar));
+                OnPropertyChanged(nameof(CanCreateCar));
             }
         }
 
         public void SetupCommands()
         {
-            AddCarCmd = new BaseCommand(x => AddCar());
+            AddCarCmd = new BaseCommand(x => AddCar(), x => CanCreateCar);
             DeleteCarCmd = new BaseCommand(x => DeleteCar(SelectedCar), x => CanDeleteCar);
         }
 
@@ -284,8 +313,11 @@ namespace CarDealer.WPF.VMs
 
             if (createdCarId > 0)
             {
+                car.Id = createdCarId;
                 Cars.Add(car);
                 OnPropertyChanged(nameof(Cars));
+
+                MessageBox.Show("Автомобиль успешно добавлен!", "Добавление", MessageBoxButton.OK, MessageBoxImage.Information);
             }
         }
 
@@ -297,6 +329,8 @@ namespace CarDealer.WPF.VMs
             {
                 Cars.Remove(car);
                 OnPropertyChanged(nameof(Cars));
+
+                MessageBox.Show("Автомобиль успешно удалён!", "Удаление", MessageBoxButton.OK, MessageBoxImage.Information);
             }
         }
     }

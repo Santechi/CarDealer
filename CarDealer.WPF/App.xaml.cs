@@ -10,6 +10,7 @@ using Microsoft.Extensions.DependencyInjection;
 using System.IO;
 using System.Windows;
 using CarDealer.Core.Abstractions.Cars;
+using CarDealer.Core.Abstractions.Sales;
 
 namespace CarDealer.WPF
 {
@@ -33,8 +34,6 @@ namespace CarDealer.WPF
 
             services.AddTransient<ICarRepo, CarRepo>();
             services.AddTransient<ICarService, CarService>();
-            services.AddTransient<ISaleRepo, SaleRepo>();
-            services.AddTransient<ISaleService, SaleService>();
 
             services.AddTransient<IBrandRepo, BrandRepo>();
             services.AddTransient<IBrandService, BrandService>();
@@ -45,10 +44,17 @@ namespace CarDealer.WPF
             services.AddTransient<IColorRepo, ColorRepo>();
             services.AddTransient<IColorService, ColorService>();
 
+            services.AddTransient<ISaleRepo, SaleRepo>();
+            services.AddTransient<ISaleService, SaleService>();
+            services.AddTransient<IEmployeeRepo, EmployeeRepo>();
+            services.AddTransient<IEmployeeService, EmployeeService>();
+
             services.AddTransient<CarDealerVM>();
             services.AddTransient<CarDealerMain>();
             services.AddTransient<AllCarsFrameVM>();
             services.AddTransient<AllCarsFrame>();
+            services.AddTransient<AllSalesFrameVM>();
+            services.AddTransient<AllSalesFrame>();
 
             ServiceProvider = services.BuildServiceProvider();
         }

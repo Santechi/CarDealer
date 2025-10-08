@@ -12,11 +12,44 @@
         </Grid.ColumnDefinitions>
 
         <Grid.RowDefinitions>
-            <RowDefinition Height="40"></RowDefinition>
-            <RowDefinition></RowDefinition>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition/>
         </Grid.RowDefinitions>
 
+        <StackPanel Margin="5" >
+            <Expander Header="Создать продажу">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                        <TextBlock Text="Автомобиль" Margin="0,0,5,0"/>
+                        <ComboBox ItemsSource="{Binding CarVMs}" SelectedItem="{Binding SelectedCarVM}" DisplayMemberPath="Name" MinWidth="200"/>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" Grid.Row="0" Grid.Column="1" VerticalAlignment="Center">
+                        <TextBlock Text="Кто продал" Margin="5,0,5,0"/>
+                        <ComboBox ItemsSource="{Binding Employees}" SelectedItem="{Binding SelectedEmployee}" DisplayMemberPath="Fio" MinWidth="160"/>
+                    </StackPanel>
+                    <Button Content="Создать" ToolTip="Создать продажу" MinWidth="100" Margin="3" Command="{Binding AddSaleCmd}" IsEnabled="{Binding CanCreateSale}" HorizontalAlignment="Right" Grid.Column="6"/>
+                </Grid>
+            </Expander>
+            <Button Content="Удалить продажу" HorizontalAlignment="Left" MinWidth="120" MaxWidth="150" Margin="3" IsEnabled="{Binding CanDeleteSale}" Command="{Binding DeleteSaleCmd}"/>
+        </StackPanel>
+
         <DataGrid ItemsSource="{Binding Sales}"
+                  SelectedItem="{Binding SelectedSale}"
                   AutoGenerateColumns="False"
                   HeadersVisibility="Column"
                   CanUserAddRows="False"

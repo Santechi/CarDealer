@@ -1,6 +1,6 @@
 ﻿using CarDealer.Core.Models.Sales;
 
-namespace CarDealer.Core.Abstractions.Cars
+namespace CarDealer.Core.Abstractions.Sales
 {
     public interface ISaleService
     {
@@ -8,5 +8,6 @@ namespace CarDealer.Core.Abstractions.Cars
         Task<int> CreateSale(Sale sale);
         Task<int> UpdateSale(int id, int carId, DateOnly saleDate, int employeeId, int state);
         Task<int> DeleteSale(int id);
+        Task<int> DeleteSalePermanently(int id);
     }
 }
