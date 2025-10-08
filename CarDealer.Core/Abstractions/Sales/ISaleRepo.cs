@@ -7,6 +7,6 @@ namespace CarDealer.Core.Abstractions.Cars
         Task<int> Create(Sale sale);
         Task<int> Delete(int id);
         Task<List<Sale>> Get();
-        Task<int> Update(int id, int carId, DateTime saleDate, int employeeId, int state);
+        Task<int> Update(int id, int carId, DateOnly saleDate, int employeeId, int state);
     }
 }

@@ -10,7 +10,7 @@ namespace CarDealer.Core.Models.Sales
 
         public virtual Car? Car { get; set; }
 
-        public DateTime SaleDate { get; set; }
+        public DateOnly SaleDate { get; set; }
 
         public int EmployeeId { get; set; }
 
@@ -22,7 +22,7 @@ namespace CarDealer.Core.Models.Sales
         {
         }
 
-        public Sale(int id, int carId, DateTime saleDate, int employeeId, int state)
+        public Sale(int id, int carId, DateOnly saleDate, int employeeId, int state)
         {
             Id = id;
             CarId = carId;
@@ -31,7 +31,7 @@ namespace CarDealer.Core.Models.Sales
             State = state;
         }
 
-        public static Sale Create(int id, int carId, DateTime saleDate, int employeeId, int state, Car? car = null, Employee? employee = null)
+        public static Sale Create(int id, int carId, DateOnly saleDate, int employeeId, int state, Car? car = null, Employee? employee = null)
         {
             var sale = new Sale(id, carId, saleDate, employeeId, state)
             {

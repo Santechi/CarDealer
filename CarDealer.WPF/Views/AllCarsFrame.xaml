@@ -4,7 +4,7 @@
         xmlns:d="http://schemas.mcrosoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d"
-        Title="AllCarsFrame" Height="450" Width="800">
+        Title="Все машины" Height="450" Width="1200">
     <Grid>
 
         <Grid.ColumnDefinitions>
@@ -12,11 +12,60 @@
         </Grid.ColumnDefinitions>
 
         <Grid.RowDefinitions>
-            <RowDefinition Height="40"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
             <RowDefinition></RowDefinition>
         </Grid.RowDefinitions>
 
+        <StackPanel Margin="5" >
+            <Expander Header="Создать автомобиль">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                        <TextBlock Text="Бренд" Margin="0,0,5,0"/>
+                        <ComboBox ItemsSource="{Binding Brands}" SelectedItem="{Binding SelectedBrand}" DisplayMemberPath="Name" MinWidth="110"/>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" Grid.Row="0" Grid.Column="1" VerticalAlignment="Center">
+                        <TextBlock Text="Модель" Margin="5,0,5,0"/>
+                        <ComboBox ItemsSource="{Binding Models}" SelectedItem="{Binding SelectedModel}" DisplayMemberPath="Name" MinWidth="110"/>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" Grid.Row="0"  Grid.Column="2" VerticalAlignment="Center">
+                        <TextBlock Text="Комплектация" Margin="5,0,5,0"/>
+                        <ComboBox ItemsSource="{Binding Complects}" SelectedItem="{Binding SelectedComplect}" IsEnabled="{Binding IsComplectEnabled}" DisplayMemberPath="Name" MinWidth="110"/>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" Grid.Row="0" Grid.Column="3" VerticalAlignment="Center">
+                        <TextBlock Text="Цвет" Margin="5,0,5,0"/>
+                        <ComboBox ItemsSource="{Binding Colors}" SelectedItem="{Binding SelectedColor}" DisplayMemberPath="Name" MinWidth="110"/>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" Grid.Row="0" Grid.Column="4" VerticalAlignment="Center">
+                        <TextBlock Text="Год" Margin="5,0,5,0"/>
+                        <ComboBox ItemsSource="{Binding Years}" SelectedItem="{Binding SelectedYear}" MinWidth="110"/>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" Grid.Column="5" VerticalAlignment="Center">
+                        <TextBlock Text="Цена" Margin="5,0,5,0"/>
+                        <TextBox MinWidth="110" Text="{Binding Price}"/>
+                    </StackPanel>
+                    <Button Content="Создать" ToolTip="Создать автомобиль" MinWidth="100" Margin="3" Command="{Binding AddCarCmd}" HorizontalAlignment="Right" Grid.Column="6"/>
+                </Grid>
+            </Expander>
+            <Button Content="Удалить автомобиль" ToolTip="Рассчитать стоимость за год" HorizontalAlignment="Left" MinWidth="120" MaxWidth="150" Margin="3" IsEnabled="{Binding CanDeleteCar}" Command="{Binding DeleteCarCmd}"/>
+        </StackPanel>
+        
         <DataGrid ItemsSource="{Binding Cars}"
+                  SelectedItem="{Binding SelectedCar}"
                   AutoGenerateColumns="False"
                   HeadersVisibility="Column"
                   CanUserAddRows="False"
@@ -26,13 +75,13 @@
                   Grid.Row="1"
                   Margin="5">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Бренд" Binding="{Binding Complect.Model.Brand.Name}" Width="140"/>
+                <DataGridTextColumn Header="Бренд" Binding="{Binding Complect.Model.Brand.Name}" Width="150"/>
                 <DataGridTextColumn Header="Модель" Binding="{Binding Complect.Model.Name}" Width="100"/>
-                <DataGridTextColumn Header="Год выпуска" Binding="{Binding Year}" Width="80"/>
-                <DataGridTextColumn Header="Страна производитель" Binding="{Binding Complect.Model.Brand.Country.Name}" Width="140"/>
+                <DataGridTextColumn Header="Год выпуска" Binding="{Binding Year}" Width="100"/>
+                <DataGridTextColumn Header="Страна производитель" Binding="{Binding Complect.Model.Brand.Country.Name}" Width="150"/>
                 <DataGridTextColumn Header="Цвет" Binding="{Binding Color.Name}" Width="100"/>
-                <DataGridTextColumn Header="Комплектация" Binding="{Binding Complect.Name}" Width="100"/>
-                <DataGridTextColumn Header="Двигатель" Binding="{Binding Complect.Engine}" Width="100"/>
+                <DataGridTextColumn Header="Комплектация" Binding="{Binding Complect.Name}" Width="120"/>
+                <DataGridTextColumn Header="Двигатель" Binding="{Binding Complect.Engine}" Width="120"/>
                 <DataGridTextColumn Header="Коробка передач" Binding="{Binding Complect.Transmission}" Width="120"/>
                 <DataGridTextColumn Header="Цена" Binding="{Binding Price}" Width="100"/>
             </DataGrid.Columns>

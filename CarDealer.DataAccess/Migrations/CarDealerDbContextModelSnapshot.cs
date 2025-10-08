@@ -219,8 +219,8 @@ namespace CarDealer.DataAccess.Migrations
                     b.Property<int>("EmployeeId")
                         .HasColumnType("integer");
 
-                    b.Property<DateTime>("SaleDate")
-                        .HasColumnType("timestamp with time zone");
+                    b.Property<DateOnly>("SaleDate")
+                        .HasColumnType("date");
 
                     b.Property<int>("State")
                         .HasColumnType("integer");

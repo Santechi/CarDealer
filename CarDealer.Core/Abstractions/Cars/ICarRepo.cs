@@ -6,6 +6,7 @@ namespace CarDealer.Core.Abstractions.Cars
     {
         Task<int> Create(Car car);
         Task<int> Delete(int id);
+        Task<int> DeletePermanently(int id);
         Task<List<Car>> Get();
         Task<int> Update(int id, int complectId, int colorId, int year, decimal price, int state);
     }

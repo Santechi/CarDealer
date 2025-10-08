@@ -8,7 +8,7 @@
 
         public int CountryId { get; set; }
 
-        public CountryEntity Country { get; set; }
+        public CountryEntity? Country { get; set; }
 
         public int State { get; set; }
     }

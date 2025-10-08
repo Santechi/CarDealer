@@ -8,5 +8,6 @@ namespace CarDealer.Core.Abstractions.Cars
         Task<int> CreateCar(Car car);
         Task<int> UpdateCar(int id, int complectId, int colorId, int year, decimal price, int state);
         Task<int> DeleteCar(int id);
+        Task<int> DeleteCarPermanently(int id);
     }
 }

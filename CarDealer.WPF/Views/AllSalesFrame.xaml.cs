@@ -1,16 +1,15 @@
-﻿using CarDealer.Core.Abstractions;
+﻿using System.Windows;
+using CarDealer.Core.Abstractions;
 using CarDealer.WPF.VMs;
-using Microsoft.Extensions.DependencyInjection;
-using System.Windows;
 
 namespace CarDealer.WPF.Views
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
-    public partial class AllCarsFrame : Window
+    public partial class AllSalesFrame : Window
     {
-        public AllCarsFrame()
+        public AllSalesFrame()
         {
             InitializeComponent();
         }

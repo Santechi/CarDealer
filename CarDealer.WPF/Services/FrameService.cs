@@ -12,6 +12,8 @@ namespace CarDealer.WPF.Services
 
             if (viewModel is AllCarsFrameVM)
                 window = new AllCarsFrame();
+            else if (viewModel is AllSalesFrameVM)
+                window = new AllSalesFrame();
 
             if (window != null)
             {

@@ -33,9 +33,22 @@ namespace CarDealer.WPF
 
             services.AddTransient<ICarRepo, CarRepo>();
             services.AddTransient<ICarService, CarService>();
+            services.AddTransient<ISaleRepo, SaleRepo>();
+            services.AddTransient<ISaleService, SaleService>();
+
+            services.AddTransient<IBrandRepo, BrandRepo>();
+            services.AddTransient<IBrandService, BrandService>();
+            services.AddTransient<IModelRepo, ModelRepo>();
+            services.AddTransient<IModelService, ModelService>();
+            services.AddTransient<IComplectRepo, ComplectRepo>();
+            services.AddTransient<IComplectService, ComplectService>();
+            services.AddTransient<IColorRepo, ColorRepo>();
+            services.AddTransient<IColorService, ColorService>();
 
             services.AddTransient<CarDealerVM>();
             services.AddTransient<CarDealerMain>();
+            services.AddTransient<AllCarsFrameVM>();
+            services.AddTransient<AllCarsFrame>();
 
             ServiceProvider = services.BuildServiceProvider();
         }

@@ -10,7 +10,7 @@ namespace CarDealer.DataAccess.Entities.Sales
 
         public CarEntity? Car { get; set; }
 
-        public DateTime SaleDate { get; set; }
+        public DateOnly SaleDate { get; set; }
 
         public int EmployeeId { get; set; }
 

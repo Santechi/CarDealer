@@ -27,6 +27,11 @@ namespace CarDealer.App.Services
             return await carRepo.Delete(id);
         }
 
+        public async Task<int> DeleteCarPermanently(int id)
+        {
+            return await carRepo.DeletePermanently(id);
+        }
+
         public async Task<int> UpdateCar(int id, int complectId, int colorId, int year, decimal price, int state)
         {
             return await carRepo.Update(id, complectId, colorId, year, price, state);

@@ -12,8 +12,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace CarDealer.DataAccess.Migrations
 {
     [DbContext(typeof(CarDealerDbContext))]
-    [Migration("20251006171330_updatedb")]
-    partial class updatedb
+    [Migration("20251007194538_newbase")]
+    partial class newbase
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -222,8 +222,8 @@ namespace CarDealer.DataAccess.Migrations
                     b.Property<int>("EmployeeId")
                         .HasColumnType("integer");
 
-                    b.Property<DateTime>("SaleDate")
-                        .HasColumnType("timestamp with time zone");
+                    b.Property<DateOnly>("SaleDate")
+                        .HasColumnType("date");
 
                     b.Property<int>("State")
                         .HasColumnType("integer");

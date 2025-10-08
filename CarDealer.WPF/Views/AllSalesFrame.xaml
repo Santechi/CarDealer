@@ -1,0 +1,38 @@
+﻿<Window x:Class="CarDealer.WPF.Views.AllSalesFrame"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.mcrosoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d"
+        Title="Все продажи" Height="450" Width="900">
+    <Grid>
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="40"></RowDefinition>
+            <RowDefinition></RowDefinition>
+        </Grid.RowDefinitions>
+
+        <DataGrid ItemsSource="{Binding Sales}"
+                  AutoGenerateColumns="False"
+                  HeadersVisibility="Column"
+                  CanUserAddRows="False"
+                  CanUserDeleteRows="False"
+                  IsReadOnly="True"
+                  GridLinesVisibility="All"
+                  Grid.Row="1"
+                  Margin="5">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Бренд" Binding="{Binding Car.Complect.Model.Brand.Name}" Width="140"/>
+                <DataGridTextColumn Header="Модель" Binding="{Binding Car.Complect.Model.Name}" Width="140"/>
+                <DataGridTextColumn Header="Комплектация" Binding="{Binding Car.Complect.Name}" Width="140"/>
+                <DataGridTextColumn Header="Цвет" Binding="{Binding Car.Color.Name}" Width="140"/>
+                <DataGridTextColumn Header="Дата продажи" Binding="{Binding SaleDate}" Width="140"/>
+                <DataGridTextColumn Header="Кто продал" Binding="{Binding Employee.Fio}" Width="140"/>
+            </DataGrid.Columns>
+        </DataGrid>
+    </Grid>
+</Window>

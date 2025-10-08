@@ -1,8 +1,8 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using CarDealer.Core.Abstractions.Cars;
+using CarDealer.Core.Models.Cars;
 using CarDealer.DataAccess.DatabaseContext;
 using CarDealer.DataAccess.Entities.Cars;
-using CarDealer.Core.Abstractions.Cars;
-using CarDealer.Core.Models.Cars;
+using Microsoft.EntityFrameworkCore;
 
 namespace CarDealer.DataAccess.Repos
 {
@@ -18,6 +18,7 @@ namespace CarDealer.DataAccess.Repos
         public async Task<List<Car>> Get()
         {
             return await context.Cars
+                .Where(x => x.State == 0)
                 .Include(c => c.Complect)
                     .ThenInclude(co => co.Model)
                         .ThenInclude(m => m.Brand)
@@ -31,78 +32,10 @@ namespace CarDealer.DataAccess.Repos
                     x.Year,
                     x.Price,
                     x.State,
-                    MapComplect(x.Complect),
-                    MapColor(x.Color)
+                    MapHelper.MapComplect(x.Complect),
+                    MapHelper.MapColor(x.Color)
                 ))
                 .ToListAsync();
-        }
-
-        private static Country? MapCountry(CountryEntity? entity)
-        {
-            if (entity == null)
-                return null;
-
-            return Country.Create(
-                entity.Id,
-                entity.Name,
-                entity.State
-            );
-        }
-
-        private static Brand? MapBrand(BrandEntity? entity)
-        {
-            if (entity == null)
-                return null;
-
-            return Brand.Create(
-                entity.Id,
-                entity.Name,
-                entity.CountryId,
-                entity.State,
-                MapCountry(entity.Country)
-            );
-        }
-
-        private static Model? MapModel(ModelEntity? entity)
-        {
-            if (entity == null)
-                return null;
-
-            return Model.Create(
-                entity.Id,
-                entity.BrandId,
-                entity.Name,
-                entity.State,
-                MapBrand(entity.Brand)
-            );
-        }
-
-        private static Complect? MapComplect(ComplectEntity? entity)
-        {
-            if (entity == null)
-                return null;
-
-            return Complect.Create(
-                entity.Id,
-                entity.ModelId,
-                entity.Name,
-                entity.Engine,
-                entity.Transmission,
-                entity.State,
-                MapModel(entity.Model)
-            );
-        }
-
-        private static Color? MapColor(ColorEntity? entity)
-        {
-            if (entity == null)
-                return null;
-
-            return Color.Create(
-                entity.Id,
-                entity.Name,
-                entity.State
-            );
         }
 
         public async Task<int> Create(Car car)
@@ -139,6 +72,16 @@ namespace CarDealer.DataAccess.Repos
         }
 
         public async Task<int> Delete(int id)
+        {
+            await context.Cars
+                .Where(t => t.Id == id)
+                .ExecuteUpdateAsync(u => u
+                    .SetProperty(p => p.State, p => 1));
+
+            return id;
+        }
+
+        public async Task<int> DeletePermanently(int id)
         {
             await context.Cars
                 .Where(t => t.Id == id)

@@ -43,5 +43,12 @@ namespace CarDealer.Core.Models.Cars
 
             return car;
         }
+
+        public override bool Equals(object obj)
+        {
+            return obj is Car car && Id == car.Id;
+        }
+
+        public override int GetHashCode() => Id.GetHashCode();
     }
 }

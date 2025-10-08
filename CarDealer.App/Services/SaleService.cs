@@ -27,7 +27,7 @@ namespace CarDealer.App.Services
             return await saleRepo.Delete(id);
         }
 
-        public async Task<int> UpdateSale(int id, int carId, DateTime saleDate, int employeeId, int state)
+        public async Task<int> UpdateSale(int id, int carId, DateOnly saleDate, int employeeId, int state)
         {
             return await saleRepo.Update(id, carId, saleDate, employeeId, state);
         }
